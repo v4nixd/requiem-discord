@@ -1,3 +1,3 @@
-git+https://github.com/DisnakeDev/disnake.git@feature/components-v2#egg=disnake
+disnake==2.11.0
 python-dotenv==1.1.0
 rich==14.0.0
