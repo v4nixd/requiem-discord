@@ -14,12 +14,11 @@
     <img alt="GitHub Release" src="https://img.shields.io/github/v/release/v4nixd/requiem-discord">
     <br>
     <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/w/v4nixd/requiem-discord">
-
 </p>
 
 ### About
 
-Designed and customized exclusively for the [Requiem Discord Server](https://discord.gg/rqm). Not intended for use outside this environment.
+Designed and customized exclusively for the [Requiem Discord Server](https://discord.gg/rqm). Not intended for use outside of this environment.
 
 ---
 
@@ -30,7 +29,7 @@ Designed and customized exclusively for the [Requiem Discord Server](https://dis
 
 ## 📦 Version
 
-`v0.0.1`
+`v0.1.0`
 
 ## 📃 License
 
@@ -43,5 +42,5 @@ This project is licensed under the MIT License — see the [LICENSE](./LICENSE) 
         <img src="resources/requiem_banner.png" width="256px">
     </a>
 </p>
-
+   
 <p align="center">© 2025 v4nixd All Rights Reserved</p>
