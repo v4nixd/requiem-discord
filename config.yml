@@ -1,2 +1,6 @@
 bot:
   test_guild: 1279047464594440292
+  status: "idle" # dnd | idle | invisible | offline | online | streaming
+  activity:
+    type: "listening" # competing | listening | playing | streaming | watching
+    name: "/help" # Listening ...

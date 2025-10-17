@@ -2,8 +2,9 @@ import os
 
 from disnake import Activity, ActivityType, Status
 from disnake.ext import commands
-
 from dotenv import load_dotenv
+
+from core.config import fetch_config
 
 load_dotenv()
 
@@ -19,10 +20,11 @@ def load_cogs(bot: commands.Bot) -> None:
 
 
 async def update_presence(bot: commands.Bot) -> None:
+    config = fetch_config()
     await bot.change_presence(
         activity=Activity(
-            type=ActivityType.listening,
-            name="/help"
+            type=ActivityType[config["bot"]["activity"]["type"]],
+            name=config["bot"]["activity"]["name"]
         ),
-        status=Status.dnd
+        status=Status[config["bot"]["status"]]
     )
