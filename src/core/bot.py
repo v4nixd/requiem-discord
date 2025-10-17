@@ -15,7 +15,7 @@ def init_bot():
     bot = commands.Bot(
         command_prefix=".",
         intents=intents,
-        test_guilds=[fetch_config()["bot"]["test_guild"]],
+        test_guilds=[config["bot"]["test_guild"]],
         reload=True
     )
     return bot
