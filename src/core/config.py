@@ -13,11 +13,9 @@ def load_config(path: str):
             LOADED = True
             print(f"Config loaded from `{path}`")
     except FileNotFoundError:
-        print(f"Config file not found: {path}")
-        raise
+        raise FileNotFoundError(f"Config file not found: {path}")
     except yaml.YAMLError as e:
-        print(f"Error parsing config file: {e}")
-        raise
+        raise yaml.YAMLError(f"Error parsing config file: {e}")
 
 
 def fetch_config():
