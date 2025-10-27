@@ -11,5 +11,6 @@ def fetch_token() -> str:
 
 def load_cogs(bot: commands.Bot) -> None:
     print("Loading cogs")
+    bot.load_extension("cogs.events.connect")
     bot.load_extension("cogs.events.ready")
     print("Cogs loaded")
