@@ -1,8 +1,10 @@
 from disnake import Intents
 from disnake.ext import commands
 
+
 class Bot:
     """Wrapper around disnake.commands.Bot for flexible initialization"""
+
     def __init__(self, intents: Intents = Intents.all(), prefix: str = ".", reload: bool = False):
         self.intents = intents
         self.command_prefix = prefix

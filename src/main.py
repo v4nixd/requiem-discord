@@ -1,6 +1,7 @@
 from core.utils import fetch_token, load_cogs
 from core.bot import Bot
 
+
 class Main:
     """Main application controller for managing the bot lifecycle"""
     instance = None
@@ -16,6 +17,7 @@ class Main:
             raise RuntimeError("Main instance NOT INITIALIZED")
 
         return cls.instance.bot.client
+
 
 if __name__ == "__main__":
     TOKEN = fetch_token()
