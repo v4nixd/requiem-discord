@@ -1,4 +1,4 @@
-from core.utils import fetch_token
+from core.utils import fetch_token, load_cogs
 from core.bot import Bot
 
 class Main:
@@ -15,10 +15,11 @@ class Main:
         if not cls.instance:
             raise RuntimeError("Main instance NOT INITIALIZED")
 
-        return cls.instance.bot
+        return cls.instance.bot.client
 
 if __name__ == "__main__":
     TOKEN = fetch_token()
     main = Main()
     bot = Main.get_bot()
+    load_cogs(bot)
     bot.run(TOKEN)
