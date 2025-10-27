@@ -1,3 +1,4 @@
+from core.utils import fetch_token
 from core.bot import Bot
 
 class Main:
@@ -17,6 +18,7 @@ class Main:
         return cls.instance.bot
 
 if __name__ == "__main__":
+    TOKEN = fetch_token()
     main = Main()
     bot = Main.get_bot()
-    bot.run("TOKEN") #TODO: fetch TOKEN var from .env safely
+    bot.run(TOKEN)
