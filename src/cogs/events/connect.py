@@ -1,4 +1,4 @@
-from disnake.ext import commands, tasks
+from disnake.ext import commands
 
 
 class OnConnectEvent(commands.Cog):
