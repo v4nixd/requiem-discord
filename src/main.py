@@ -1,3 +1,5 @@
+from disnake.ext import commands
+
 from core.utils import fetch_token, load_cogs
 from core.bot import Bot
 
@@ -12,11 +14,18 @@ class Main:
         Main.instance = self
 
     @classmethod
-    def get_bot(cls) -> Bot:
+    def get_bot(cls) -> commands.Bot:
         if not cls.instance:
             raise RuntimeError("Main instance NOT INITIALIZED")
 
-        return cls.instance.bot.client
+        client = cls.instance.bot.client
+
+        if not client:
+            raise RuntimeError(
+                "bot.client not initialized yet, but already is being fetched"
+            )
+
+        return client
 
 
 if __name__ == "__main__":
