@@ -3,20 +3,19 @@ from datetime import datetime
 from sqlalchemy import Integer, String, TIMESTAMP, Boolean, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from database import Database
+from database.database import Database
 
 db = Database()
-Base = db.Base
 
 
-class UserRole(Base):
+class UserRole(db.Base):
     __tablename__ = "user_roles"
 
     role_id: Mapped[int] = mapped_column(primary_key=True)
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
 
 
-class UserReferral(Base):
+class UserReferral(db.Base):
     __tablename__ = "user_referrals"
 
     user_id: Mapped[int] = mapped_column(
@@ -24,7 +23,7 @@ class UserReferral(Base):
     referral_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
 
 
-class User(Base):
+class User(db.Base):
     __tablename__ = "users"
 
     id: Mapped[int] = mapped_column(primary_key=True, unique=True)
@@ -50,7 +49,7 @@ class User(Base):
         backref="user", cascade="all, delete")
 
 
-class ModerationLog(Base):
+class ModerationLog(db.Base):
     __tablename__ = "modlogs"
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
