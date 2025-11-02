@@ -1,10 +1,15 @@
 import os
 
-from dotenv import load_dotenv
+from pathlib import Path
 
+from dotenv import load_dotenv
+from disnake import File
 from disnake.ext import commands
 
 load_dotenv()
+
+BASE_DIR = Path(__file__).resolve().parents[1]
+ASSETS_DIR = BASE_DIR / "assets"
 
 
 def fetch_token() -> str:
@@ -22,4 +27,11 @@ def load_cogs(bot: commands.Bot) -> None:
     bot.load_extension("cogs.events.ready")
     bot.load_extension("cogs.events.disconnect")
     bot.load_extension("cogs.events.resumed")
+    # ----------------
+    bot.load_extension("cogs.commands.verification")
     print("Cogs loaded")
+
+
+def get_asset(name: str) -> File:
+    path = ASSETS_DIR / name
+    return File(path, filename=name)
