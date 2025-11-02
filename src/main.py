@@ -1,7 +1,10 @@
+import atexit
+
 from disnake.ext import commands
 
 from core.utils import fetch_token, load_cogs
 from core.bot import Bot
+from database.models import db
 
 
 class Main:
@@ -28,9 +31,15 @@ class Main:
         return client
 
 
+def on_exit() -> None:
+    db.shutdown()
+
+
 if __name__ == "__main__":
     TOKEN = fetch_token()
     main = Main()
     bot = Main.get_bot()
+    db.create_all()
+    atexit.register(on_exit)
     load_cogs(bot)
     bot.run(TOKEN)
