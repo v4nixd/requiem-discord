@@ -29,6 +29,7 @@ def load_cogs(bot: commands.Bot) -> None:
     bot.load_extension("cogs.events.resumed")
     # ----------------
     bot.load_extension("cogs.commands.verification")
+    bot.load_extension("cogs.commands.purge")
     print("Cogs loaded")
 
 

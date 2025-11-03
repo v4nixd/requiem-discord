@@ -14,7 +14,7 @@ class VerificationCommands(commands.Cog):
         self.bot: commands.Bot = bot
         print("VerificationCommands cog Loaded")
 
-    @commands.command(name="verify_embed")
+    @commands.command(name="verify_embed", hidden=True)
     async def verify_embed(self, ctx: commands.Context) -> None:
         verify_ui = VerificationUI()
         await ctx.send(
