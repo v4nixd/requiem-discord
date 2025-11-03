@@ -1,0 +1,29 @@
+name: Deploy Requiem Discord
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: appleboy/checkout@v4
+
+      - name: Deploy to server
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd ~/d-rqm-prod
+            git pull origin main
+            python3 -m venv .venv
+            source .venv/bin/activate
+            pip install -r requirements.txt
+            chmod +x start.sh
+            sudo systemctl restart dis-rqm.service || ./start.sh &
