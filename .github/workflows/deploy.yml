@@ -21,6 +21,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd ~/d-rqm-prod
+            echo "TOKEN=${{ secrets.DISCORD_TOKEN }}" > .env
             git pull origin main
             python3 -m venv .venv
             source .venv/bin/activate
