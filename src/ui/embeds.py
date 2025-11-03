@@ -26,7 +26,7 @@ class VerificationUI(ui.Container):
         )
 
         footer_block = ui.TextDisplay(
-            "-# ⚠️ Нажимая кнопку ниже, ты подтверждаешь, что согласен(а) с правилами **Requiem**, а также условиями и политикой Discord."
+            "-# ⚠️ Нажимая кнопку ниже, ты подтверждаешь, что согласен(а) с правилами **Requiem**."
         )
 
         buttons_row = ui.ActionRow(
