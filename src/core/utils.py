@@ -3,7 +3,7 @@ import os
 from pathlib import Path
 
 from dotenv import load_dotenv
-from disnake import File
+from disnake import File, Activity, ActivityType, Status
 from disnake.ext import commands
 
 load_dotenv()
@@ -31,6 +31,16 @@ def load_cogs(bot: commands.Bot) -> None:
     bot.load_extension("cogs.commands.verification")
     bot.load_extension("cogs.commands.purge")
     print("Cogs loaded")
+
+
+async def update_presence(bot: commands.Bot) -> None:
+    await bot.change_presence(
+        activity=Activity(
+            type=ActivityType.playing,
+            name="В активной разработке 🚧"
+        ),
+        status=Status.idle
+    )
 
 
 def get_asset(name: str) -> File:
