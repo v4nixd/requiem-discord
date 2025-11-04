@@ -1,5 +1,7 @@
 import atexit
 
+import asyncio
+
 from disnake.ext import commands
 
 from core.utils import fetch_token, load_cogs
@@ -32,14 +34,15 @@ class Main:
 
 
 def on_exit() -> None:
-    db.shutdown()
+    print("Shutting down db")
+    asyncio.run(db.shutdown())
 
 
 if __name__ == "__main__":
     TOKEN = fetch_token()
     main = Main()
     bot = Main.get_bot()
-    db.create_all()
+    asyncio.run(db.create_all())
     atexit.register(on_exit)
     load_cogs(bot)
     bot.run(TOKEN)

@@ -1,5 +1,4 @@
 from datetime import datetime
-
 from sqlalchemy import Integer, String, TIMESTAMP, Boolean, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -20,7 +19,16 @@ class UserReferral(db.Base):
 
     user_id: Mapped[int] = mapped_column(
         ForeignKey("users.id"), primary_key=True)
-    referral_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
+    referral_id: Mapped[int] = mapped_column(
+        ForeignKey("users.id"), primary_key=True)
+
+    # два relationship-а — для обеих сторон связи
+    user: Mapped["User"] = relationship(
+        "User", foreign_keys=[user_id], back_populates="referrals"
+    )
+    referral: Mapped["User"] = relationship(
+        "User", foreign_keys=[referral_id], back_populates="referred_by"
+    )
 
 
 class User(db.Base):
@@ -44,9 +52,22 @@ class User(db.Base):
     last_seen_at: Mapped[datetime | None] = mapped_column(TIMESTAMP)
 
     roles: Mapped[list["UserRole"]] = relationship(
-        backref="user", cascade="all, delete")
+        backref="user", cascade="all, delete"
+    )
+
     referrals: Mapped[list["UserReferral"]] = relationship(
-        backref="user", cascade="all, delete")
+        "UserReferral",
+        foreign_keys="[UserReferral.user_id]",
+        back_populates="user",
+        cascade="all, delete",
+    )
+
+    referred_by: Mapped[list["UserReferral"]] = relationship(
+        "UserReferral",
+        foreign_keys="[UserReferral.referral_id]",
+        back_populates="referral",
+        cascade="all, delete",
+    )
 
 
 class ModerationLog(db.Base):
