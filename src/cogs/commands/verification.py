@@ -3,6 +3,7 @@ from disnake.ext import commands
 from disnake.utils import get
 
 from ui.embeds import VerificationUI
+from database.repositories import user_repository
 
 VERIFIED_ROLE_ID = 1279053939408638014
 USER_ROLE_ID = 1279053761154646090
@@ -15,6 +16,8 @@ class VerificationCommands(commands.Cog):
         print("VerificationCommands cog Loaded")
 
     @commands.command(name="verify_embed", hidden=True)
+    @commands.has_role(ADMIN_ROLE_ID)
+    @commands.guild_only()
     async def verify_embed(self, ctx: commands.Context) -> None:
         verify_ui = VerificationUI()
         await ctx.send(
@@ -47,6 +50,10 @@ class VerificationCommands(commands.Cog):
                 )
                 return
 
+            if await user_repository.get_user(member.id) == None:
+                await user_repository.register_user(member)
+
+            await user_repository.set_verified(member.id, True)
             await member.add_roles(verified_role, user_role)
             await inter.response.send_message(
                 "🔓 Вам выдан доступ к серверу",
