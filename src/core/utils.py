@@ -30,6 +30,7 @@ def load_cogs(bot: commands.Bot) -> None:
     # ----------------
     bot.load_extension("cogs.commands.verification")
     bot.load_extension("cogs.commands.purge")
+    bot.load_extension("cogs.commands.lookup")
     print("Cogs loaded")
 
 
