@@ -12,13 +12,16 @@ BASE_DIR = Path(__file__).resolve().parents[1]
 ASSETS_DIR = BASE_DIR / "assets"
 
 
-def fetch_token() -> str:
-    TOKEN = os.getenv("TOKEN")
+def fetch_tokens() -> tuple[str, str]:
+    DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
+    OPENAI_TOKEN = os.getenv("OPENAI_TOKEN")
 
-    if not TOKEN:
-        raise RuntimeError("TOKEN environment variable is None")
+    if not DISCORD_TOKEN:
+        raise RuntimeError("DISCORD_TOKEN environment variable is None")
+    if not OPENAI_TOKEN:
+        raise RuntimeError("OPENAI_TOKEN environment variable is None")
 
-    return TOKEN
+    return (DISCORD_TOKEN, OPENAI_TOKEN)
 
 
 def load_cogs(bot: commands.Bot) -> None:
@@ -31,6 +34,7 @@ def load_cogs(bot: commands.Bot) -> None:
     bot.load_extension("cogs.commands.verification")
     bot.load_extension("cogs.commands.purge")
     bot.load_extension("cogs.commands.lookup")
+    bot.load_extension("cogs.commands.ask")
     print("Cogs loaded")
 
 
