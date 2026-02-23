@@ -1,0 +1,27 @@
+[project]
+name = "requiem-discord"
+version = "0.1.0"
+description = "Main Requiem discord bot"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "disnake>=2.11.0",
+    "httpx>=0.28.1",
+    "python-dotenv>=1.2.1",
+    "pyyaml>=6.0.3",
+    "sqlalchemy>=2.0.46",
+]
+
+[dependency-groups]
+dev = [
+    "isort>=7.0.0",
+    "ruff>=0.15.0",
+    "taskipy>=1.14.1",
+]
+
+[tool.taskipy.tasks]
+dev = "python -m src.main"
+lint = "ruff check"
+format = "ruff format"
+sort = "isort ."
+check = "ruff check && ruff format && isort ."
