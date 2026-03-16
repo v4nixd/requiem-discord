@@ -29,7 +29,6 @@ async def handle_guild_update(entry: AuditLogEntry, logs_channel: TextChannel):
 
     embed = build_embed(entry, action_name, embed_base, content)
 
-    print("sending embed")
     await logs_channel.send(embed=embed)
 
 
@@ -48,5 +47,4 @@ async def handle_member_update(entry: AuditLogEntry, logs_channel: TextChannel):
 
     embed = build_embed(entry, action_name, embed_base, content)
 
-    print("sending embed")
     await logs_channel.send(embed=embed)
