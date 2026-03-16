@@ -2,6 +2,7 @@ from disnake import AuditLogEntry, TextChannel
 from disnake.ext import commands
 
 from src.audit.registry import AuditHandler
+from src.audit import handlers  # DO NOT REMOVE, IMPORTANT FOR LOADING HANDLERS
 from src.audit.utils import get_logs_channel
 
 

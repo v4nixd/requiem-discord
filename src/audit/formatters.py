@@ -69,7 +69,7 @@ def format_diff_line(
     after: Any,
     fields: dict[str, str],
 ) -> str:
-    if key in ("mute", "deafen"):
+    if key in ("mute", "deaf"):
         print(key)
         state_key = f"{key}{'0' if after else '1'}"
         print(state_key)
