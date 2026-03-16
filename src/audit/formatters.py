@@ -70,8 +70,11 @@ def format_diff_line(
     fields: dict[str, str],
 ) -> str:
     if key in ("mute", "deafen"):
+        print(key)
         state_key = f"{key}{'0' if after else '1'}"
+        print(state_key)
         field_name = fields.get(state_key, state_key)
+        print(field_name)
         return f"> **{field_name}**"
 
     field_name = fields.get(key, key)
@@ -88,10 +91,7 @@ def format_diff(entry: AuditLogEntry, fields: dict[str, str]) -> list[str]:
     if not diff:
         return ["> **Изменений не обнаружено**"]
 
-    return [
-        format_diff_line(key, before, after, fields)
-        for key, before, after in diff
-    ]
+    return [format_diff_line(key, before, after, fields) for key, before, after in diff]
 
 
 def format_diff_raw(entry: AuditLogEntry) -> str:
@@ -111,9 +111,11 @@ def format_diff_raw(entry: AuditLogEntry) -> str:
     target = require_member(entry.target)
     moderator = require_member(entry.user)
 
-    return "\n```diff" \
-        f"\n$ (target): <@{str(target.id)}>" \
-        f"\n$ (moderator): <@{str(moderator.id)}>" \
-        f"\n$ (action): <{str(entry.action)}>" \
-        f"\n{result}" \
+    return (
+        "\n```diff"
+        f"\n$ (target): <@{str(target.id)}>"
+        f"\n$ (moderator): <@{str(moderator.id)}>"
+        f"\n$ (action): <{str(entry.action)}>"
+        f"\n{result}"
         "\n```"
+    )

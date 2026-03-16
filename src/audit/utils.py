@@ -1,4 +1,4 @@
-from disnake import Guild, TextChannel, AuditLogEntry, Member
+from disnake import AuditLogEntry, Guild, Member, TextChannel
 
 from src.config import Config
 
@@ -17,11 +17,9 @@ def get_logs_channel(guild: Guild) -> TextChannel:
     if not logs_channel:
         raise ValueError(f"Logs Channel not found ({channel_id})")
     elif not isinstance(logs_channel, TextChannel):
-        raise ValueError(
-            f"Logs Channel is not typeof TextChannel ({channel_id})"
-        )
-    else:
-        return logs_channel
+        raise ValueError(f"Logs Channel is not typeof TextChannel ({channel_id})")
+
+    return logs_channel
 
 
 def extract_color(entry: AuditLogEntry) -> int:

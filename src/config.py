@@ -1,10 +1,8 @@
 from __future__ import annotations
 
 import os
-import typing
 
 import yaml
-
 from dotenv import load_dotenv
 
 

@@ -19,8 +19,7 @@ class Utils:
 
         await bot.change_presence(
             activity=Activity(
-                type=ActivityType[activity["type"]],
-                name=activity["name"]
+                type=ActivityType[activity["type"]], name=activity["name"]
             ),
-            status=Status[activity["status"]]
+            status=Status[activity["status"]],
         )

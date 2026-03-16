@@ -1,7 +1,11 @@
-import httpx
+from __future__ import annotations
+
 from typing import Any
 
+import httpx
+
 from src.config import Config
+
 from .exceptions import APIError
 from .models import User
 
@@ -9,17 +13,16 @@ from .models import User
 class AsyncAPIClient:
     _instance: AsyncAPIClient | None = None
 
-    def __init__(self,
-                 base_url: str,
-                 api_key: str,
-                 timeout: float = 10.0,
-                 ) -> None:
+    def __init__(
+        self,
+        base_url: str,
+        api_key: str,
+        timeout: float = 10.0,
+    ) -> None:
         self.base_url = base_url
         self.timeout = timeout
 
-        headers = {
-            "Content-Type": "application/json"
-        }
+        headers = {"Content-Type": "application/json"}
 
         if api_key:
             headers["x-api-key"] = str(api_key)
@@ -27,9 +30,7 @@ class AsyncAPIClient:
             raise ValueError("API key is required for authentication")
 
         self._client = httpx.AsyncClient(
-            base_url=self.base_url + "/v1",
-            headers=headers,
-            timeout=self.timeout
+            base_url=self.base_url + "/v1", headers=headers, timeout=self.timeout
         )
 
     @staticmethod
@@ -38,7 +39,7 @@ class AsyncAPIClient:
             config = Config.instance()
             AsyncAPIClient._instance = AsyncAPIClient(
                 base_url=config.get_env_var("API_BASE_URL"),
-                api_key=config.get_env_var("API_KEY")
+                api_key=config.get_env_var("API_KEY"),
             )
             print("API client initialized successfully")
         return AsyncAPIClient._instance
@@ -71,13 +72,17 @@ class AsyncAPIClient:
         avatar: str | None = None,
         banner: str | None = None,
     ) -> User:
-        data = await self._request("POST", "/users/sync", json={
-            "discordId": str(discord_id),
-            "username": username,
-            "globalName": global_name,
-            "avatar": avatar,
-            "banner": banner
-        })
+        data = await self._request(
+            "POST",
+            "/users/sync",
+            json={
+                "discordId": str(discord_id),
+                "username": username,
+                "globalName": global_name,
+                "avatar": avatar,
+                "banner": banner,
+            },
+        )
         return User(**data)
 
     async def close(self) -> None:
