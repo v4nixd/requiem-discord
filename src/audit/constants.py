@@ -59,20 +59,32 @@ GUILD_UPDATE_FIELDS_RU = {
     "banner": "Баннер сервера",
     "splash": "Splash изображение",
     "discovery_splash": "Discovery splash",
-    "owner_id": "Владелец сервера",
+
+    "owner": "Владелец сервера",
+
     "preferred_locale": "Язык сервера",
+    "description": "Описание сервера",
+
     "afk_channel": "AFK канал",
     "afk_timeout": "AFK таймер",
+
     "system_channel": "Системный канал",
+    "system_channel_flags": "Настройки системных сообщений",
+
     "rules_channel": "Канал правил",
     "public_updates_channel": "Канал обновлений",
+
     "verification_level": "Уровень проверки",
     "explicit_content_filter": "Фильтр откровенного контента",
-    "default_notifications": "Уведомления по умолчанию",
+    "default_message_notifications": "Уведомления по умолчанию",
     "mfa_level": "2FA для модерации",
-    "features": "Функции сервера",
+
     "vanity_url_code": "Vanity URL",
-    "description": "Описание сервера",
+
+    "widget_enabled": "Виджет сервера",
+    "widget_channel": "Канал виджета",
+
+    "premium_progress_bar_enabled": "Полоса прогресса бустов",
 }
 
 MEMBER_UPDATE_FIELDS_RU = {
@@ -82,4 +94,30 @@ MEMBER_UPDATE_FIELDS_RU = {
     "deaf0": "Мут наушников",
     "deaf1": "Размут наушников",
     "timeout": "Таймаут",
+}
+
+CHANNEL_FIELDS_RU = {
+    "name": "Название канала",
+    "type": "Тип канала",
+    "position": "Позиция канала",
+
+    "overwrites": "Права доступа",
+
+    "topic": "Тема канала",
+
+    "bitrate": "Битрейт",
+    "rtc_region": "RTC регион",
+    "video_quality_mode": "Качество видео",
+
+    "user_limit": "Лимит пользователей",
+
+    "slowmode_delay": "Медленный режим",
+    "default_thread_slowmode_delay": "Медленный режим тредов",
+
+    "default_auto_archive_duration": "Автоархивация тредов",
+
+    "nsfw": "NSFW",
+
+    "available_tags": "Доступные теги",
+    "default_reaction": "Реакция по умолчанию",
 }

@@ -1,4 +1,5 @@
 from disnake import AuditLogEntry, Guild, Member, TextChannel
+from disnake.abc import GuildChannel
 
 from src.config import Config
 
@@ -6,6 +7,12 @@ from src.config import Config
 def require_member(obj) -> Member:
     if not isinstance(obj, Member):
         raise TypeError("Expected Member")
+    return obj
+
+
+def require_channel(obj) -> GuildChannel:
+    if not isinstance(obj, GuildChannel):
+        raise TypeError("Expected Channel")
     return obj
 
 
@@ -17,7 +24,8 @@ def get_logs_channel(guild: Guild) -> TextChannel:
     if not logs_channel:
         raise ValueError(f"Logs Channel not found ({channel_id})")
     elif not isinstance(logs_channel, TextChannel):
-        raise ValueError(f"Logs Channel is not typeof TextChannel ({channel_id})")
+        raise ValueError(
+            f"Logs Channel is not typeof TextChannel ({channel_id})")
 
     return logs_channel
 

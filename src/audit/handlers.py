@@ -1,9 +1,17 @@
-from disnake import AuditLogAction, AuditLogEntry, TextChannel
+from disnake import (
+    AuditLogAction,
+    AuditLogEntry,
+    TextChannel
+)
 
 from src.audit.common import build_diff_embed_base, build_embed
-from src.audit.constants import GUILD_UPDATE_FIELDS_RU, MEMBER_UPDATE_FIELDS_RU
+from src.audit.constants import (
+    GUILD_UPDATE_FIELDS_RU,
+    MEMBER_UPDATE_FIELDS_RU,
+    CHANNEL_FIELDS_RU
+)
 from src.audit.registry import AuditHandler
-from src.audit.utils import require_member
+from src.audit.utils import require_member, require_channel
 
 
 @AuditHandler.register(AuditLogAction.guild_update)
@@ -27,7 +35,7 @@ async def handle_guild_update(entry: AuditLogEntry, logs_channel: TextChannel):
 
     content = (
         f"\n> **Модератор**: {moderator.mention} ||`{moderator.id}`||"
-        f"\n> **Причина**: `{entry.reason}`"
+        # f"\n> **Причина**: `{entry.reason}`"
     )
 
     embed = build_embed(entry, action_name, embed_base, content)
@@ -49,6 +57,26 @@ async def handle_member_update(entry: AuditLogEntry, logs_channel: TextChannel):
         f"\n> **Цель**: {target.mention} ||`{target.id}`||"
         f"\n> **Модератор**: {moderator.mention} ||`{moderator.id}`||"
         f"\n> **Причина**: `{entry.reason}`"
+    )
+
+    embed = build_embed(entry, action_name, embed_base, content)
+
+    await logs_channel.send(embed=embed)
+
+
+@AuditHandler.register(AuditLogAction.channel_create, AuditLogAction.channel_delete, AuditLogAction.channel_update)
+async def handle_channel_logs(entry: AuditLogEntry, logs_channel: TextChannel):
+
+    action_name, embed_base = build_diff_embed_base(
+        entry, entry.action, CHANNEL_FIELDS_RU
+    )
+
+    channel = require_channel(entry.target)
+    moderator = require_member(entry.user)
+
+    content = (
+        f"\n> **Канал**: {channel.mention} ||`{channel.id}`||"
+        f"\n> **Модератор**: {moderator.mention} ||`{moderator.id}`||"
     )
 
     embed = build_embed(entry, action_name, embed_base, content)

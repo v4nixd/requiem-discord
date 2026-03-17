@@ -1,4 +1,5 @@
 import inspect
+from typing import Any
 
 from disnake import AuditLogAction, AuditLogEntry, Embed, Member
 
@@ -17,7 +18,7 @@ def validate_entry_action(entry: AuditLogEntry, target: AuditLogAction) -> None:
 
     if not entry.action == target:
         raise ValueError(
-            f"{caller} - expected: `{target.name}` |got: `{entry.action.name}`"
+            f"{caller} - expected: `{target.name}` | got: `{entry.action.name}`"
         )
 
 
@@ -55,7 +56,8 @@ def build_embed(
     embed_base += content
     embed_base += format_diff_raw(entry)
 
-    embed = Embed(title=action_name, description=embed_base, timestamp=entry.created_at)
+    embed = Embed(title=action_name, description=embed_base,
+                  timestamp=entry.created_at)
 
     embed.set_footer(text=f"ID: {entry.id} | HASH: {hash(entry)}")
 

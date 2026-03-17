@@ -38,7 +38,7 @@ def stringify_diff_value(value: Any) -> str:
         return "Нету"
 
     if isinstance(value, bool):
-        return "Да" if value else "Нет"
+        return "✅" if value else "🟥"
 
     if isinstance(value, (Member, User)):
         return f"{value} ({value.id})"
@@ -47,7 +47,7 @@ def stringify_diff_value(value: Any) -> str:
         return f"@{value.name} ({value.id})"
 
     if isinstance(value, str):
-        return value if value.strip() else "Пусто"
+        return value if value.strip() else "Null"
 
     if isinstance(value, (int, float)):
         return str(value)
@@ -105,13 +105,15 @@ def format_diff_raw(entry: AuditLogEntry) -> str:
 
     result = "\n".join(lines)
 
-    target = require_member(entry.target)
+    if entry.target:
+        target = f"\n$ (target): {str(entry.target.id)}"
+    else:
+        target = None
     moderator = require_member(entry.user)
 
     return (
-        "\n```diff"
-        f"\n$ (target): <@{str(target.id)}>"
-        f"\n$ (moderator): <@{str(moderator.id)}>"
+        f"\n```diff{target}"
+        f"\n$ (moderator): {str(moderator.id)}"
         f"\n$ (action): <{str(entry.action)}>"
         f"\n{result}"
         "\n```"
