@@ -1,6 +1,6 @@
 # TODO: Move this to .yaml file
 
-from disnake import AuditLogAction
+from disnake import AuditLogAction, Color
 
 AUDIT_LOG_ACTION_RU = {
     AuditLogAction.guild_update: "Обновлены настройки сервера",
@@ -51,6 +51,57 @@ AUDIT_LOG_ACTION_RU = {
     AuditLogAction.thread_update: "Изменён тред",
     AuditLogAction.thread_delete: "Удалён тред",
     AuditLogAction.application_command_permission_update: "Изменены права команды приложения",
+}
+
+AUDIT_LOG_ACTION_COLORS = {
+    AuditLogAction.guild_update: Color.yellow(),
+    AuditLogAction.channel_create: Color.brand_green(),
+    AuditLogAction.channel_update: Color.yellow(),
+    AuditLogAction.channel_delete: Color.brand_red(),
+    AuditLogAction.overwrite_create: Color.brand_green(),
+    AuditLogAction.overwrite_update: Color.yellow(),
+    AuditLogAction.overwrite_delete: Color.brand_red(),
+    # AuditLogAction.member_kick: Color.brand_red(),
+    AuditLogAction.member_prune: Color.brand_red(),
+    # AuditLogAction.member_ban_add: Color.brand_red(),
+    # AuditLogAction.member_ban_remove: Color.brand_red(),
+    AuditLogAction.member_update: Color.yellow(),
+    AuditLogAction.member_role_update: Color.yellow(),
+    AuditLogAction.member_move: Color.blurple(),
+    AuditLogAction.member_disconnect: Color.brand_red(),
+    AuditLogAction.bot_add: Color.brand_green(),
+    AuditLogAction.role_create: Color.brand_green(),
+    AuditLogAction.role_update: Color.yellow(),
+    AuditLogAction.role_delete: Color.brand_red(),
+    AuditLogAction.invite_create: Color.brand_green(),
+    AuditLogAction.invite_update: Color.yellow(),
+    AuditLogAction.invite_delete: Color.brand_red(),
+    AuditLogAction.webhook_create: Color.brand_green(),
+    AuditLogAction.webhook_update: Color.yellow(),
+    AuditLogAction.webhook_delete: Color.brand_red(),
+    AuditLogAction.emoji_create: Color.brand_green(),
+    AuditLogAction.emoji_update: Color.yellow(),
+    AuditLogAction.emoji_delete: Color.brand_red(),
+    AuditLogAction.message_delete: Color.brand_red(),
+    AuditLogAction.message_bulk_delete: Color.brand_red(),
+    AuditLogAction.message_pin: Color.brand_green(),
+    AuditLogAction.message_unpin: Color.brand_red(),
+    AuditLogAction.integration_create: Color.brand_green(),
+    AuditLogAction.integration_update: Color.yellow(),
+    AuditLogAction.integration_delete: Color.brand_red(),
+    AuditLogAction.stage_instance_create: Color.brand_green(),
+    AuditLogAction.stage_instance_update: Color.yellow(),
+    AuditLogAction.stage_instance_delete: Color.brand_red(),
+    AuditLogAction.sticker_create: Color.brand_green(),
+    AuditLogAction.sticker_update: Color.yellow(),
+    AuditLogAction.sticker_delete: Color.brand_red(),
+    AuditLogAction.guild_scheduled_event_create: Color.brand_green(),
+    AuditLogAction.guild_scheduled_event_update: Color.yellow(),
+    AuditLogAction.guild_scheduled_event_delete: Color.brand_red(),
+    AuditLogAction.thread_create: Color.brand_green(),
+    AuditLogAction.thread_update: Color.yellow(),
+    AuditLogAction.thread_delete: Color.brand_red(),
+    AuditLogAction.application_command_permission_update: Color.yellow(),
 }
 
 GUILD_UPDATE_FIELDS_RU = {

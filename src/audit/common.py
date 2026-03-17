@@ -1,15 +1,21 @@
 import inspect
 from typing import Any
 
-from disnake import AuditLogAction, AuditLogEntry, Embed, Member
+from disnake import AuditLogAction, AuditLogEntry, Embed, Member, Color
 
-from src.audit.constants import AUDIT_LOG_ACTION_RU
+from src.audit.constants import AUDIT_LOG_ACTION_RU, AUDIT_LOG_ACTION_COLORS
 from src.audit.formatters import format_diff, format_diff_raw
 
 
 def fetch_action_name(entry: AuditLogEntry) -> str:
     return AUDIT_LOG_ACTION_RU.get(
         entry.action, entry.action.name.replace("_", " ").title()
+    )
+
+
+def fetch_action_color(entry: AuditLogEntry) -> Color:
+    return AUDIT_LOG_ACTION_COLORS.get(
+        entry.action, Color.greyple()
     )
 
 
@@ -55,9 +61,14 @@ def build_embed(
 ) -> Embed:
     embed_base += content
     embed_base += format_diff_raw(entry)
+    color = fetch_action_color(entry)
 
-    embed = Embed(title=action_name, description=embed_base,
-                  timestamp=entry.created_at)
+    embed = Embed(
+        title=action_name,
+        description=embed_base,
+        timestamp=entry.created_at,
+        color=color
+    )
 
     embed.set_footer(text=f"ID: {entry.id} | HASH: {hash(entry)}")
 
