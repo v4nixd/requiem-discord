@@ -1,4 +1,5 @@
-from disnake import Activity, ActivityType, Status
+from disnake import Activity, ActivityType, Status, Guild, Member
+from disnake.abc import GuildChannel
 from disnake.ext import commands
 
 from src.config import Config
@@ -23,3 +24,21 @@ class Utils:
             ),
             status=Status[activity["status"]],
         )
+
+    @staticmethod
+    def require_guild(obj) -> Guild:
+        if not isinstance(obj, Guild):
+            raise TypeError("Expected Guild")
+        return obj
+
+    @staticmethod
+    def require_member(obj) -> Member:
+        if not isinstance(obj, Member):
+            raise TypeError("Expected Member")
+        return obj
+
+    @staticmethod
+    def require_channel(obj) -> GuildChannel:
+        if not isinstance(obj, GuildChannel):
+            raise TypeError("Expected Channel")
+        return obj

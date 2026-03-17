@@ -4,14 +4,14 @@ from disnake import (
     TextChannel
 )
 
-from src.audit.common import build_diff_embed_base, build_embed
+from src.audit.common import build_diff_embed_base, build_embed, fetch_action_name
 from src.audit.constants import (
     GUILD_UPDATE_FIELDS_RU,
     MEMBER_UPDATE_FIELDS_RU,
     CHANNEL_FIELDS_RU
 )
 from src.audit.registry import AuditHandler
-from src.audit.utils import require_member, require_channel
+from src.utils import Utils
 
 
 @AuditHandler.register(AuditLogAction.guild_update)
@@ -31,7 +31,7 @@ async def handle_guild_update(entry: AuditLogEntry, logs_channel: TextChannel):
         entry, AuditLogAction.guild_update, GUILD_UPDATE_FIELDS_RU
     )
 
-    moderator = require_member(entry.user)
+    moderator = Utils.require_member(entry.user)
 
     content = (
         f"\n> **Модератор**: {moderator.mention} ||`{moderator.id}`||"
@@ -50,8 +50,8 @@ async def handle_member_update(entry: AuditLogEntry, logs_channel: TextChannel):
         entry, AuditLogAction.member_update, MEMBER_UPDATE_FIELDS_RU
     )
 
-    target = require_member(entry.target)
-    moderator = require_member(entry.user)
+    target = Utils.require_member(entry.target)
+    moderator = Utils.require_member(entry.user)
 
     content = (
         f"\n> **Цель**: {target.mention} ||`{target.id}`||"
@@ -67,18 +67,25 @@ async def handle_member_update(entry: AuditLogEntry, logs_channel: TextChannel):
 @AuditHandler.register(AuditLogAction.channel_create, AuditLogAction.channel_delete, AuditLogAction.channel_update)
 async def handle_channel_logs(entry: AuditLogEntry, logs_channel: TextChannel):
 
-    action_name, embed_base = build_diff_embed_base(
-        entry, entry.action, CHANNEL_FIELDS_RU
-    )
+    # action_name, embed_base = build_diff_embed_base(
+    #     entry, entry.action, CHANNEL_FIELDS_RU
+    # )
+    action_name = fetch_action_name(entry)
 
-    channel = require_channel(entry.target)
-    moderator = require_member(entry.user)
+    print(entry.before)
+    channel = Utils.require_channel(entry.target)
+    moderator = Utils.require_member(entry.user)
 
     content = (
         f"\n> **Канал**: {channel.mention} ||`{channel.id}`||"
         f"\n> **Модератор**: {moderator.mention} ||`{moderator.id}`||"
     )
 
-    embed = build_embed(entry, action_name, embed_base, content)
+    embed = build_embed(entry, action_name, "", content)
 
     await logs_channel.send(embed=embed)
+
+# @AuditHandler.register(AuditLogAction.message_delete)
+# async def handle_message_delete(entry: AuditLogEntry, logs_channel: TextChannel):
+#     action_name = fetch_action_name(entry)
+#     message = entry.before

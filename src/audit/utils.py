@@ -4,18 +4,6 @@ from disnake.abc import GuildChannel
 from src.config import Config
 
 
-def require_member(obj) -> Member:
-    if not isinstance(obj, Member):
-        raise TypeError("Expected Member")
-    return obj
-
-
-def require_channel(obj) -> GuildChannel:
-    if not isinstance(obj, GuildChannel):
-        raise TypeError("Expected Channel")
-    return obj
-
-
 def get_logs_channel(guild: Guild) -> TextChannel:
     config = Config().instance().config
     channel_id = int(config["bot"]["logs"]["channel_id"])

@@ -5,7 +5,7 @@ from typing import Any
 
 from disnake import AuditLogEntry, Member, Role, User
 
-from src.audit.utils import require_member
+from src.utils import Utils
 
 
 def extract_diff(entry: AuditLogEntry) -> list[tuple[str, Any, Any]]:
@@ -109,7 +109,7 @@ def format_diff_raw(entry: AuditLogEntry) -> str:
         target = f"\n$ (target): {str(entry.target.id)}"
     else:
         target = None
-    moderator = require_member(entry.user)
+    moderator = Utils.require_member(entry.user)
 
     return (
         f"\n```diff{target}"
