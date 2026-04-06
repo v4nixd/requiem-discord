@@ -1,4 +1,4 @@
-from disnake import Activity, ActivityType, Status, Guild, Member
+from disnake import Activity, ActivityType, Guild, Member, Status
 from disnake.abc import GuildChannel
 from disnake.ext import commands
 
