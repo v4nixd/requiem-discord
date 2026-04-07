@@ -1,7 +1,7 @@
 services:
-  requiem-discord:
-    build: .
-    container_name: requiem-discord
+  app:
+    image: ghcr.io/v4nixd/requiem-discord:latest
+    container_name: requiem_discord
     network_mode: host
     restart: unless-stopped
     env_file:
