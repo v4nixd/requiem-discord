@@ -40,12 +40,18 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
+          context: .
+          push: true
+          tags: ghcr.io/v4nixd/requiem-discord:${{ steps.vars.outputs.TAG }}
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           port: ${{ secrets.VPS_PORT }}
-          scripts: |
+          script: |
             cd /opt/requiem-discord
-            docker compose pull
-            docker compose up -d
-            docker image prune -f
+            docker compose -f docker-compose.prod.yml pull
+            docker compose -f docker-compose.prod.yml up -d
