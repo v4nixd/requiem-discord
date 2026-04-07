@@ -22,7 +22,7 @@ dev = [
 ]
 
 [tool.taskipy.tasks]
-dev = "python -m src.main"
+dev = "python -m src.main -u"
 lint = "ruff check"
 format = "ruff format"
 sort = "isort ."
