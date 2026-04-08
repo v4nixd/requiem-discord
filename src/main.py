@@ -1,8 +1,9 @@
 from __future__ import annotations
 
-from src.bot import Bot
-from src.config import Config
-from src.utils import Utils
+from src.core.bot import Bot
+from src.core.config import Config
+from src.core.database import init_db
+from src.core.utils import Utils
 
 
 class Main:
@@ -23,5 +24,6 @@ if __name__ == "__main__":
     bot = main.bot.client
     config = Config.instance()
     TOKEN = config.get_env_var("DISCORD_TOKEN")
+    init_db()
     Utils.load_cogs(bot)
     bot.run(TOKEN)

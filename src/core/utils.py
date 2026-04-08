@@ -2,7 +2,7 @@ from disnake import Activity, ActivityType, Guild, Member, Status
 from disnake.abc import GuildChannel
 from disnake.ext import commands
 
-from src.config import Config
+from src.core.config import Config
 
 
 class Utils:
@@ -10,7 +10,7 @@ class Utils:
     def load_cogs(bot: commands.InteractionBot) -> None:
         print("Loading cogs...")
         bot.load_extensions("src/cogs/events")
-        # bot.load_extensions("src/cogs/commands")
+        bot.load_extensions("src/cogs/commands")
         print("Cogs loaded successfully")
 
     @staticmethod

@@ -1,6 +1,6 @@
 from disnake.ext import commands
 
-from src.utils import Utils
+from src.core.utils import Utils
 
 
 class OnConnectEvent(commands.Cog):
